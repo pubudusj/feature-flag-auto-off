@@ -1,0 +1,10 @@
+{
+    "name": "consumeDiscountCode",
+    "version": "1.0.0",
+    "description": "Lambdas to consume discount code",
+    "private": true,
+    "license": "MIT",
+    "dependencies": {
+        "aws-sdk": "*"
+    }
+}
