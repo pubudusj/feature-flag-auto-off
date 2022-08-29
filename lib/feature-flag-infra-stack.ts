@@ -28,7 +28,6 @@ export class FeatureFlagInfraStack extends Stack {
       type: 'AWS.AppConfig.FeatureFlags',
     });
 
-    const discountCodeKey = "discountCode_" + paramDiscountCode.valueAsString;
     const cfnHostedConfigurationVersion = new appconfig.CfnHostedConfigurationVersion(this, 'MyCfnHostedConfigurationVersion', {
       applicationId: this.appconfigApplication.ref,
       configurationProfileId: this.appconfigConfigurationProfile.ref,

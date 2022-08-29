@@ -10,6 +10,10 @@ SES_FROM_EMAIL = ''
 EVENT_SOURCE = 'XYZCo'
 # AWS CLI profile.
 profile='default'
+# AWS Region to deploy the stack
+region='eu-central-1'
+
+APPCONFIG_EXTENSION_ARN=$(shell grep ${region} .appconfig_extension_arns | cut -d '=' -f2)
 
 help:
 	@echo "make build: Install required dependencies"
@@ -21,6 +25,6 @@ build:
 	cd ./src/checkDiscountCodeValidity && npm install
 
 deploy:
-	cdk deploy FeatureFlagInfra FeatureFlagAutoOffStack --profile=${profile} --parameters FeatureFlagInfra:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCodeMaxUsage=${DISCOUNT_CODE_MAX_USAGE_COUNT} --parameters FeatureFlagAutoOffStack:adminEmail=${ADMIN_EMAIL} --parameters FeatureFlagAutoOffStack:sesFromEmail=${SES_FROM_EMAIL} --parameters FeatureFlagAutoOffStack:ebEventSource=${EVENT_SOURCE}
+	cdk deploy FeatureFlagInfra FeatureFlagAutoOffStack --profile=${profile} --parameters FeatureFlagInfra:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCodeMaxUsage=${DISCOUNT_CODE_MAX_USAGE_COUNT} --parameters FeatureFlagAutoOffStack:adminEmail=${ADMIN_EMAIL} --parameters FeatureFlagAutoOffStack:sesFromEmail=${SES_FROM_EMAIL} --parameters FeatureFlagAutoOffStack:ebEventSource=${EVENT_SOURCE} --parameters FeatureFlagAutoOffStack:appConfigExtensionArn=${APPCONFIG_EXTENSION_ARN}
 destroy:
-	cdk destroy FeatureFlagInfra FeatureFlagAutoOffStack --profile=${profile} --parameters FeatureFlagInfra:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCodeMaxUsage=${DISCOUNT_CODE_MAX_USAGE_COUNT} --parameters FeatureFlagAutoOffStack:adminEmail=${ADMIN_EMAIL} --parameters FeatureFlagAutoOffStack:sesFromEmail=${SES_FROM_EMAIL} --parameters FeatureFlagAutoOffStack:ebEventSource=${EVENT_SOURCE}
+	cdk destroy FeatureFlagInfra FeatureFlagAutoOffStack --profile=${profile} --parameters FeatureFlagInfra:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCode=${DISCOUNT_CODE} --parameters FeatureFlagAutoOffStack:discountCodeMaxUsage=${DISCOUNT_CODE_MAX_USAGE_COUNT} --parameters FeatureFlagAutoOffStack:adminEmail=${ADMIN_EMAIL} --parameters FeatureFlagAutoOffStack:sesFromEmail=${SES_FROM_EMAIL} --parameters FeatureFlagAutoOffStack:ebEventSource=${EVENT_SOURCE} --parameters FeatureFlagAutoOffStack:appConfigExtensionArn=${APPCONFIG_EXTENSION_ARN}

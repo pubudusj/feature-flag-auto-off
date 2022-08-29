@@ -46,6 +46,7 @@ export class FeatureFlagAutoOffStack extends Stack {
     var adminEMail = new CfnParameter(this, 'adminEmail', { type: 'String' });
     var sesFromEmail = new CfnParameter(this, 'sesFromEmail', { type: 'String' });
     var ebEventSource = new CfnParameter(this, 'ebEventSource', { type: 'String' });
+    var appConfigExtensionArn = new CfnParameter(this, 'appConfigExtensionArn', { type: 'String' });
 
     const DISCOUNT_CODE = paramDiscountCode.valueAsString;
     const DISCOUNT_CODE_MAX_USAGE = discountCodeMaxUsage.valueAsString;
@@ -53,6 +54,7 @@ export class FeatureFlagAutoOffStack extends Stack {
     const SES_FROM_EMAIL = sesFromEmail.valueAsString;
     const EB_EVENT_SOURCE = ebEventSource.valueAsString;
     const EB_EVENT_NAME = 'DiscountCodeConsumed';
+    const APPCONFIG_EXTENSION_ARN = appConfigExtensionArn.valueAsString;
 
     const eventBus = new events.EventBus(this, 'CompanyEventBus', {
       eventBusName: 'CompanyEventBus'
@@ -106,7 +108,7 @@ export class FeatureFlagAutoOffStack extends Stack {
     });
 
     checkDiscountCodeValidityLambda.addLayers(
-      lambda.LayerVersion.fromLayerVersionArn(this, 'AppConfigLayer', 'arn:aws:lambda:eu-central-1:066940009817:layer:AWS-AppConfig-Extension:59')
+      lambda.LayerVersion.fromLayerVersionArn(this, 'AppConfigLayer', APPCONFIG_EXTENSION_ARN)
     );
 
     const checkDiscountCodeValidityLambdaUrl = checkDiscountCodeValidityLambda.addFunctionUrl({
