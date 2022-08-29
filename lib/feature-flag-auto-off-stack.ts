@@ -141,7 +141,7 @@ export class FeatureFlagAutoOffStack extends Stack {
       returnValues: tasks.DynamoReturnValues.ALL_NEW,
     });
 
-    const sendNotificationToAdmin = new tasks.CallAwsService(this, 'SendNotificationToUser', {
+    const sendNotificationToAdmin = new tasks.CallAwsService(this, 'SendNotificationToAdmin', {
       service: 'sesv2',
       action: 'sendEmail',
       parameters: {
