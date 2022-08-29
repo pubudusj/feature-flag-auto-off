@@ -101,6 +101,7 @@ export class FeatureFlagAutoOffStack extends Stack {
         APPCONFIG_APPLICATION_ID: this.appconfigApplication.ref,
         APPCONFIG_ENVIRONMENT: this.appconfigEnv.name,
         APPCONFIG_CONFIGURATION_ID: this.appconfigConfigurationProfile.ref,
+        DISCOUNT_CODE: DISCOUNT_CODE,
       }
     });
 
